@@ -31,7 +31,6 @@
 
         .page-wrapper {
             display: flex;
-            flex-direction: column;
             width: 100%;
         }
 
@@ -44,15 +43,10 @@
             left: 0;
             top: 0;
             overflow-y: auto;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             z-index: 1000;
             color: white;
             padding-top: 20px;
-            transform: translateX(-100%);
-        }
-
-        .sidebar.active {
-            transform: translateX(0);
         }
 
         .sidebar-logo {
@@ -67,7 +61,7 @@
         }
 
         .nav-menu li {
-            padding: 15px 20px;
+            padding: 10px 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -75,12 +69,7 @@
         }
 
         .nav-menu li:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .nav-menu li.active {
-            background: rgba(255,255,255,0.3);
-            border-left: 4px solid white;
+            background: rgba(255,255,255,0.1);
         }
 
         .nav-menu li i {
@@ -89,36 +78,23 @@
             text-align: center;
         }
 
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1100;
-            background: var(--gradient-primary);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        .nav-menu li.active {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid white;
         }
 
         /* Main Content Area */
         .main-content {
-            margin-left: 0;
-            width: 100%;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-
-        .main-content.with-sidebar {
+            flex-grow: 1;
             margin-left: 250px;
             width: calc(100% - 250px);
+            transition: all 0.3s ease;
         }
 
         .container {
             max-width: 1300px;
             margin: 0 auto;
+            padding: 20px;
         }
 
         header {
@@ -137,95 +113,263 @@
             letter-spacing: -1px;
         }
 
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gradient-primary);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .section {
+            background-color: white;
+            margin: 25px 0;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            transition: all 0.3s ease;
         }
 
-        .back-to-top.show {
-            display: block;
+        .section h2 {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1100;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         /* Responsive Adjustments */
         @media screen and (max-width: 1024px) {
+            .page-wrapper {
+                flex-direction: column;
+            }
+
             .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
                 transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
             }
 
             .mobile-menu-toggle {
                 display: block;
             }
 
-            .main-content.with-sidebar {
-                margin-left: 0;
-                width: 100%;
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+
+            .nav-menu li {
+                flex: 1 1 calc(33.333% - 20px);
+                margin: 10px;
+                text-align: center;
+                justify-content: center;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .nav-menu li {
+                flex: 1 1 100%;
+                margin: 5px 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
+    <div class="page-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>QA Guide</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="active" data-section="overview" onclick="scrollToSection('overviewSection')">
+                    <i class="fas fa-home"></i> Overview
+                </li>
+                <li data-section="career" onclick="scrollToSection('careerRoadmapSection')">
+                    <i class="fas fa-rocket"></i> Career Roadmap
+                </li>
+                <li data-section="responsibilities" onclick="scrollToSection('responsibilitiesSection')">
+                    <i class="fas fa-tasks"></i> Responsibilities
+                </li>
+                <li data-section="tools" onclick="scrollToSection('toolsSection')">
+                    <i class="fas fa-tools"></i> Tools
+                </li>
+                <li data-section="skills" onclick="scrollToSection('technicalSkillsSection')">
+                    <i class="fas fa-code"></i> Technical Skills
+                </li>
+                <li data-section="certifications" onclick="scrollToSection('certificationSection')">
+                    <i class="fas fa-certificate"></i> Certifications
+                </li>
+                <li data-section="learned" onclick="scrollToSection('learnedSection')">
+                    <i class="fas fa-book"></i> What I Have Learned
+                </li>
+            </ul>
+        </aside>
 
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <h2>QA Guide</h2>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
         </div>
-        <ul class="nav-menu">
-            <li class="active" data-section="overview" onclick="scrollToSection('overviewSection')">
-                <i class="fas fa-home"></i> Overview
-            </li>
-            <li data-section="career" onclick="scrollToSection('careerRoadmapSection')">
-                <i class="fas fa-rocket"></i> Career Roadmap
-            </li>
-            <!-- More items... -->
-        </ul>
-    </aside>
 
-    <main class="main-content">
-        <!-- Content here... -->
-    </main>
+        <main class="main-content">
+            <div class="container">
+                <header>
+                    <h1>🚀 Mastering Quality Assurance</h1>
+                    <p>Your Ultimate Roadmap to QA Excellence</p>
+                </header>
 
-    <div class="back-to-top" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
+                <!-- Overview Section -->
+                <section class="section" id="overviewSection">
+                    <h2>🎯 QA Overview</h2>
+                    <p>Quality Assurance (QA) is a critical role in software development that ensures the quality, reliability, and performance of software products. QA professionals prevent defects, identify potential issues, and maintain high standards throughout the software development lifecycle. They collaborate with developers, product managers, and other stakeholders to ensure software meets user expectations and functional requirements.</p>
+                </section>
+
+                <!-- Career Roadmap Section -->
+                <section class="section" id="careerRoadmapSection">
+                    <h2>🚀 QA Career Roadmap</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3>Fundamentals Stage</h3>
+                            <p>Start with the basics of software development and testing principles. Learn manual testing and understand the testing lifecycle.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Advanced Automation</h3>
+                            <p>Move towards automated testing using tools like Selenium and JUnit. Learn to script and integrate tests into CI/CD pipelines.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Specialized Expertise</h3>
+                            <p>Explore advanced testing techniques like performance testing, security testing, and user acceptance testing (UAT).</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Responsibilities Section -->
+                <section class="section" id="responsibilitiesSection">
+                    <h2>💼 QA Responsibilities</h2>
+                    <ul>
+                        <li>Writing and executing test cases</li>
+                        <li>Identifying, documenting, and tracking defects</li>
+                        <li>Collaborating with developers to reproduce and resolve issues</li>
+                        <li>Performing regression testing</li>
+                        <li>Ensuring compliance with quality standards and best practices</li>
+                    </ul>
+                </section>
+
+                <!-- Tools Section -->
+                <section class="section" id="toolsSection">
+                    <h2>🛠️ QA Tools</h2>
+                    <ul>
+                        <li><strong>Selenium</strong>: A widely used tool for automating web browsers.</li>
+                        <li><strong>JUnit</strong>: A framework for writing and running tests in Java.</li>
+                        <li><strong>Jira</strong>: A tool for bug tracking and project management.</li>
+                        <li><strong>Postman</strong>: A tool for testing APIs.</li>
+                        <li><strong>Jenkins</strong>: A continuous integration and continuous delivery tool that helps automate testing and deployment.</li>
+                    </ul>
+                </section>
+
+                <!-- Technical Skills Section -->
+                <section class="section" id="technicalSkillsSection">
+                    <h2>🖥️ Technical Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3>Manual Testing</h3>
+                            <p>Understanding how to execute tests manually to identify bugs and ensure software behaves as expected.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Automation Testing</h3>
+                            <p>Using tools like Selenium to automate repetitive tasks, improving efficiency and coverage.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>API Testing</h3>
+                            <p>Validating that APIs are functioning as intended, using tools like Postman and SoapUI.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Certifications Section -->
+                <section class="section" id="certificationSection">
+                    <h2>🎓 QA Certifications</h2>
+                    <ul>
+                        <li><strong> Tester</strong>: A globally recognized certification for software testing professionals.</li>
+                        <li><strong>Certified Software Test Engineer (CSTE)</strong>: Focuses on professional software testing.</li>
+                        <li><strong>Certified Agile Tester</strong>: Ideal for professionals working in agile environments.</li>
+                        <li><strong>Certified Selenium Professional</strong>: Specializes in automating web applications using Selenium.</li>
+                    </ul>
+                </section>
+
+                <!-- What I Have Learned Section -->
+                <section class="section" id="learnedSection">
+                    <h2>📚 What I Have Learned</h2>
+                    <p>Throughout my journey in Quality Assurance, I have gained deep insights into the critical importance of testing in ensuring the quality, performance, and reliability of software products. Here are a few key lessons:</p>
+                    <ul>
+                        <li><strong>Attention to Detail</strong>: Ensuring even the smallest issues don't go unnoticed, as they can have large impacts on the overall product.</li>
+                        <li><strong>Collaboration</strong>: Working with developers, product owners, and other stakeholders is essential for identifying and resolving issues efficiently.</li>
+                        <li><strong>Automation Saves Time</strong>: Automation, when done correctly, can save a significant amount of time and increase test coverage across multiple environments.</li>
+                        <li><strong>Continuous Learning</strong>: QA is an ever-evolving field. Continuous improvement and staying updated on the latest tools, techniques, and best practices is key.</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
     </div>
 
     <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
         function toggleMobileMenu() {
             const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
             sidebar.classList.toggle('active');
-            mainContent.classList.toggle('with-sidebar');
         }
-
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // Show "Back to Top" button on scroll
-        window.addEventListener('scroll', () => {
-            const backToTop = document.querySelector('.back-to-top');
-            if (window.scrollY > 200) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
     </script>
 </body>
 </html>
+
+
