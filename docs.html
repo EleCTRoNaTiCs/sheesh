@@ -135,6 +135,20 @@
             gap: 25px;
         }
 
+        .skill-card {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+
         .mobile-menu-toggle {
             display: none;
             position: fixed;
@@ -209,10 +223,6 @@
     </style>
 </head>
 <body>
-    <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
-
     <div class="page-wrapper">
         <aside class="sidebar">
             <div class="sidebar-logo">
@@ -240,6 +250,10 @@
             </ul>
         </aside>
 
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
         <main class="main-content">
             <div class="container">
                 <header>
@@ -247,30 +261,84 @@
                     <p>Your Ultimate Roadmap to QA Excellence</p>
                 </header>
 
+                <!-- Overview Section -->
                 <section class="section" id="overviewSection">
                     <h2>🎯 QA Overview</h2>
-                    <p>Quality Assurance (QA) is a critical role in software development that ensures the quality, reliability, and performance of software products. QA professionals prevent defects, identify potential issues, and maintain high standards throughout the software development lifecycle.</p>
+                    <p>Quality Assurance (QA) is a critical role in software development that ensures the quality, reliability, and performance of software products. QA professionals prevent defects, identify potential issues, and maintain high standards throughout the software development lifecycle. They collaborate with developers, product managers, and other stakeholders to ensure software meets user expectations and functional requirements.</p>
                 </section>
 
+                <!-- Career Roadmap Section -->
                 <section class="section" id="careerRoadmapSection">
                     <h2>🚀 QA Career Roadmap</h2>
                     <div class="skills-grid">
                         <div class="skill-card">
                             <h3>Fundamentals Stage</h3>
-                            <p>Build strong foundations in software development lifecycle and core testing principles</p>
+                            <p>Start with the basics of manual testing, software development lifecycle, and core testing principles.</p>
                         </div>
                         <div class="skill-card">
                             <h3>Advanced Automation</h3>
-                            <p>Transition from manual testing to sophisticated test automation and scripting</p>
+                            <p>Learn automation testing tools and frameworks to enhance the efficiency of testing processes.</p>
                         </div>
                         <div class="skill-card">
                             <h3>Specialized Expertise</h3>
-                            <p>Develop deep skills in performance, security, and specialized testing domains</p>
+                            <p>Explore specialized areas such as performance testing, security testing, and user acceptance testing (UAT).</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Additional sections would follow here -->
+                <!-- Responsibilities Section -->
+                <section class="section" id="responsibilitiesSection">
+                    <h2>💼 QA Responsibilities</h2>
+                    <ul>
+                        <li>Writing and executing test cases</li>
+                        <li>Identifying, documenting, and tracking defects</li>
+                        <li>Collaborating with developers to reproduce and resolve issues</li>
+                        <li>Performing regression testing</li>
+                        <li>Ensuring compliance with quality standards and best practices</li>
+                    </ul>
+                </section>
+
+                <!-- Tools Section -->
+                <section class="section" id="toolsSection">
+                    <h2>🛠️ QA Tools</h2>
+                    <ul>
+                        <li><strong>Selenium</strong>: A widely used tool for automating web browsers.</li>
+                        <li><strong>JUnit</strong>: A framework for writing and running tests in Java.</li>
+                        <li><strong>Jira</strong>: A tool for bug tracking and project management.</li>
+                        <li><strong>Postman</strong>: A tool for testing APIs.</li>
+                        <li><strong>Jenkins</strong>: A continuous integration and continuous delivery tool that helps automate testing and deployment.</li>
+                    </ul>
+                </section>
+
+                <!-- Technical Skills Section -->
+                <section class="section" id="technicalSkillsSection">
+                    <h2>🖥️ Technical Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3>Manual Testing</h3>
+                            <p>Understanding how to execute tests manually to identify bugs and ensure software behaves as expected.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>Automation Testing</h3>
+                            <p>Using tools like Selenium to automate repetitive tasks, improving efficiency and coverage.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3>API Testing</h3>
+                            <p>Validating that APIs are functioning as intended, using tools like Postman and SoapUI.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Certifications Section -->
+                <section class="section" id="certificationSection">
+                    <h2>🎓 QA Certifications</h2>
+                    <ul>
+                        <li><strong>ISTQB Certified Tester</strong>: A globally recognized certification for software testing professionals.</li>
+                        <li><strong>Certified Software Test Engineer (CSTE)</strong>: Focuses on professional software testing.</li>
+                        <li><strong>Certified Agile Tester</strong>: Ideal for professionals working in agile environments.</li>
+                        <li><strong>Certified Selenium Professional</strong>: Specializes in automating web applications using Selenium.</li>
+                    </ul>
+                </section>
             </div>
         </main>
     </div>
@@ -279,19 +347,11 @@
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             section.scrollIntoView({ behavior: 'smooth' });
-
-            // Update active menu item
-            document.querySelectorAll('.nav-menu li').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`[data-section="${sectionId.replace('Section', '')}"]`).classList.add('active');
-
-            // Close mobile menu after selection
-            document.querySelector('.sidebar').classList.remove('active');
         }
 
         function toggleMobileMenu() {
-            document.querySelector('.sidebar').classList.toggle('active');
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
         }
     </script>
 </body>
