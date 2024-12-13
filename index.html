@@ -159,45 +159,5 @@
         </a>
     </div>
 
-    <script>
-      
-            
-            // QA Documentation HTML Content
-            const qaDocContent = `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Quality Assurance in Software Development</title>
-                <style>
-                    ${document.querySelector('style').textContent}
-                </style>
-            </head>
-            <body>
-                <div class="welcome-container">
-                    <h1>Quality Assurance in Software Development</h1>
-                    <p class="tagline">Comprehensive Guide to QA Practices</p>
-                    <section>
-                        <h2>Key Responsibilities</h2>
-                        <ul>
-                            <li>Test Planning and Strategy</li>
-                            <li>Defect Management</li>
-                            <li>Performance Testing</li>
-                        </ul>
-                    </section>
-                </div>
-            </body>
-            </html>
-            `;
-
-            // Create and download the file
-            const blob = new Blob([qaDocContent], {type: 'text/html'});
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'qa-docs.html';
-            link.click();
-        
-    </script>
 </body>
 </html>
